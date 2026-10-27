@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Place — تسويق عقاري</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#BD765E;--gold-light:#D4917A;--gold-dark:#8E523F;
+  --sky:#BD765E;--sky-dark:#37261F;--sky-light:#F4F2E4;
+  --white:#ffffff;--offwhite:#F4F2E4;--cream:#EADBCB;--sand:#E2CBB5;
+  --dark:#2A1D17;--mid:#5C4436;--gray:#8A7262;--lgray:#B9A797;
+}
+html{scroll-behavior:smooth}
+body{background:var(--offwhite);color:var(--dark);font-family:'Cairo',sans-serif;overflow-x:hidden;cursor:none}
+.cursor{width:10px;height:10px;background:var(--sky);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(189,118,94,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.12s ease}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(55,38,31,0.96);backdrop-filter:blur(10px)}
+.nav-logo{font-family:'Cinzel',serif;font-size:18px;font-weight:700;letter-spacing:4px;color:var(--gold);text-decoration:none}
+.nav-logo span{color:#fff;font-weight:400}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'Cinzel',serif;transition:color 0.3s}
+.nav-links a:hover{color:var(--sand)}
+.nav-cta{border:1px solid var(--sand);color:var(--sand);padding:9px 22px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;text-decoration:none;text-transform:uppercase;transition:all 0.3s;background:transparent;cursor:none}
+.nav-cta:hover{background:var(--sand);color:var(--sky-dark)}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,#37261F 0%,#5A3A2C 22%,#8E523F 42%,#BD765E 62%,#D9AE92 80%,#F4F2E4 100%)}
+.cloud{position:absolute;border-radius:50px;background:rgba(255,255,255,0.88);filter:blur(6px)}
+.cloud::before,.cloud::after{content:'';position:absolute;background:inherit;border-radius:50%}
+.c1{width:260px;height:65px;top:18%;left:-5%;animation:cMove 28s linear infinite}
+.c1::before{width:110px;height:85px;top:-38px;left:38px}
+.c1::after{width:85px;height:65px;top:-28px;left:125px}
+.c2{width:200px;height:50px;top:32%;right:-5%;animation:cMove2 22s linear infinite;opacity:.7}
+.c2::before{width:90px;height:70px;top:-32px;left:28px}
+.c2::after{width:75px;height:55px;top:-22px;left:105px}
+.c3{width:170px;height:42px;top:52%;left:8%;animation:cMove 38s linear infinite;opacity:.6}
+.c3::before{width:75px;height:60px;top:-28px;left:22px}
+.c3::after{width:65px;height:50px;top:-18px;left:85px}
+.c4{width:300px;height:75px;top:62%;right:4%;animation:cMove2 32s linear infinite;opacity:.75}
+.c4::before{width:130px;height:95px;top:-42px;left:46px}
+.c4::after{width:95px;height:75px;top:-32px;left:152px}
+.c5{width:140px;height:38px;top:10%;left:38%;animation:cMove 46s linear infinite;opacity:.5}
+.c5::before{width:65px;height:52px;top:-23px;left:18px}
+.hero-fog{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(0deg,rgba(255,255,255,0.6) 0%,rgba(226,203,181,0.3) 45%,transparent 100%);filter:blur(10px)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,18,12,0.5) 0%,rgba(30,18,12,0.05) 35%,rgba(30,18,12,0.05) 60%,rgba(30,18,12,0.45) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 20px;max-width:960px}
+.hero-tagline{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;color:rgba(255,255,255,0.85);text-transform:uppercase;margin-bottom:24px;display:block;opacity:0;animation:fadeUp 1s 0.3s forwards;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.hero-title-clip{font-family:'Cinzel',serif;font-size:clamp(72px,13vw,170px);font-weight:900;letter-spacing:10px;line-height:0.9;background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&q=80');background-size:cover;background-position:center;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:block;margin-bottom:4px;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.35));opacity:0;animation:fadeUp 1s 0.5s forwards}
+.hero-sub-en{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2.2vw,24px);font-style:italic;color:rgba(255,255,255,0.88);letter-spacing:2px;margin-bottom:40px;opacity:0;animation:fadeUp 1s 0.7s forwards;text-shadow:0 2px 8px rgba(0,0,0,0.35)}
+.hero-divider{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--sand),transparent);margin:0 auto 40px;opacity:0;animation:fadeUp 1s 0.9s forwards}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 1s forwards}
+.btn-sky{background:var(--gold);color:#fff;padding:14px 38px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all 0.3s;cursor:none}
+.btn-sky:hover{background:var(--gold-dark);transform:translateY(-2px)}
+.btn-outline-white{border:1px solid rgba(255,255,255,0.6);color:#fff;padding:14px 38px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;cursor:none}
+.btn-outline-white:hover{background:rgba(255,255,255,0.1)}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s 1.3s forwards}
+.hero-scroll span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.6);text-transform:uppercase}
+.scroll-line{width:1px;height:44px;background:linear-gradient(180deg,rgba(255,255,255,0.6),transparent);animation:scrollAnim 2s 2s infinite}
+
+/* SECTION SHARED */
+.section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--sky);text-transform:uppercase;margin-bottom:20px;display:block}
+.reveal{opacity:1;transform:none;transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ABOUT */
+.about-section{padding:110px 60px;background:#fff;position:relative;overflow:hidden}
+.about-section::before{content:'HOME PLACE';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cinzel',serif;font-size:clamp(50px,10vw,140px);font-weight:900;color:rgba(189,118,94,0.04);white-space:nowrap;letter-spacing:10px;pointer-events:none}
+.about-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-left h2{font-family:'Cinzel',serif;font-size:clamp(28px,3.5vw,50px);font-weight:700;line-height:1.1;color:var(--dark);margin-bottom:6px}
+.about-left h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky);font-weight:300;font-size:1.12em}
+.about-left .ar-sub{font-size:18px;color:var(--gray);font-weight:300;margin-top:6px;font-family:'Cairo',sans-serif}
+.about-right .gold-line{width:50px;height:2px;background:var(--sky);margin-bottom:28px}
+.about-right p{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.85;color:var(--mid);margin-bottom:18px;font-weight:300}
+.about-right p.ar{font-family:'Cairo',sans-serif;font-size:14px;font-weight:300;line-height:1.9;color:var(--gray)}
+.city-img{margin-top:56px;border-radius:12px;overflow:hidden;max-width:1040px;margin-left:auto;margin-right:auto;box-shadow:0 16px 50px rgba(55,38,31,0.12)}
+.city-img img{width:100%;height:400px;object-fit:cover;display:block}
+
+/* STATS */
+.stats-section{padding:70px 60px;background:var(--sky-dark);border-top:1px solid rgba(189,118,94,0.3)}
+.stats-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center}
+.stat-item{position:relative}
+.stat-item::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,0.1)}
+.stat-item:last-child::after{display:none}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(34px,4vw,54px);font-weight:900;color:var(--sand);display:block;line-height:1}
+.stat-label-en{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:rgba(255,255,255,0.7);margin-top:6px}
+.stat-label-ar{font-family:'Cairo',sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin-top:3px}
+
+/* MARQUEE */
+.marquee-section{padding:32px 0;overflow:hidden;background:var(--cream);border-top:1px solid rgba(189,118,94,0.15);border-bottom:1px solid rgba(189,118,94,0.15)}
+.marquee-track{display:flex;gap:50px;animation:marquee 22s linear infinite;white-space:nowrap}
+.marquee-item{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.marquee-dot{color:var(--sky);font-size:16px}
+
+/* REWIRED / STEPS SECTION */
+.rewired-section{padding:120px 60px;background:var(--offwhite);position:relative}
+.rewired-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.rewired-left h2{font-family:'Cinzel',serif;font-size:clamp(30px,4vw,52px);font-weight:900;line-height:1.05;color:var(--dark);margin-bottom:4px}
+.rewired-left h2 span{display:block;color:var(--sky)}
+.rewired-left .ar-h{font-family:'Cairo',sans-serif;font-size:18px;color:var(--gray);font-weight:300;margin-top:8px;margin-bottom:32px}
+.rewired-steps{display:flex;flex-direction:column;gap:0}
+.step-item{padding:24px 0;border-bottom:1px solid rgba(189,118,94,0.12);display:flex;gap:20px;align-items:flex-start}
+.step-num{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--sky);font-weight:700;min-width:28px;margin-top:3px}
+.step-content h4{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.step-content h4 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky)}
+.step-content p{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--mid);line-height:1.7;font-weight:300}
+.step-content .ar{font-family:'Cairo',sans-serif;font-size:12px;color:var(--gray);font-weight:300;margin-top:3px}
+
+/* ARROWS SECTION */
+.arrows-section{padding:100px 60px;background:#fff}
+.arrows-header{text-align:center;margin-bottom:60px}
+.arrows-header h2{font-family:'Cinzel',serif;font-size:clamp(26px,3.5vw,44px);font-weight:700;color:var(--dark);margin-bottom:6px}
+.arrows-header h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky)}
+.arrows-header p{font-family:'Cairo',sans-serif;color:var(--gray);font-size:14px;font-weight:300}
+.arrows-row{display:flex;justify-content:center;gap:0;max-width:900px;margin:0 auto 70px}
+.arrow-item{position:relative;width:220px;height:130px;display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%,15% 50%);transition:all 0.4s;cursor:none;overflow:hidden}
+.arrow-item:first-child{clip-path:polygon(0 0,85% 0,100% 50%,85% 100%,0 100%)}
+.arrow-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:1;transition:opacity 0.4s}
+.arrow-overlay{position:absolute;inset:0;background:rgba(55,38,31,0.55);transition:background 0.4s}
+.arrow-item:hover .arrow-overlay{background:rgba(55,38,31,0.35)}
+.arrow-content{position:relative;z-index:2;text-align:center;padding:0 28px}
+.arrow-num{font-family:'Cinzel',serif;font-size:28px;font-weight:900;color:rgba(255,255,255,0.35);display:block;line-height:1}
+.arrow-label-en{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:#fff;display:block;margin-top:3px}
+.arrow-label-ar{font-family:'Cairo',sans-serif;font-size:11px;color:rgba(255,255,255,0.75);display:block}
+
+/* SERVICES — BIG ROWS */
+.services-section{padding:0;background:var(--dark)}
+.services-header{padding:80px 60px 60px;text-align:center}
+.services-header h2{font-family:'Cinzel',serif;font-size:clamp(14px,1.5vw,18px);letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.services-header h3{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,58px);font-weight:300;color:#fff;font-style:italic}
+.service-row{display:grid;grid-template-columns:1fr 1fr;min-height:320px;position:relative;overflow:hidden;cursor:none;transition:all 0.4s}
+.service-row:hover .service-img{transform:scale(1.04)}
+.service-row-alt{direction:ltr}
+.service-img{background-size:cover;background-position:center;transition:transform 0.6s ease}
+.service-text{padding:60px 52px;display:flex;flex-direction:column;justify-content:center;background:var(--dark);position:relative}
+.service-text::before{content:'';position:absolute;top:0;bottom:0;right:0;width:2px;background:linear-gradient(180deg,transparent,var(--sky),transparent)}
+.service-row-alt .service-text::before{right:auto;left:0}
+.service-num{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--sky);margin-bottom:16px}
+.service-title-en{font-family:'Cinzel',serif;font-size:clamp(36px,4vw,64px);font-weight:900;color:#fff;letter-spacing:2px;line-height:1;margin-bottom:6px}
+.service-title-ar{font-family:'Cairo',sans-serif;font-size:18px;color:var(--sand);font-weight:600;margin-bottom:20px}
+.service-desc{font-family:'Cormorant Garamond',serif;font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;font-weight:300;margin-bottom:8px}
+.service-desc-ar{font-family:'Cairo',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);font-weight:300;line-height:1.8}
+.service-arrow{display:inline-flex;align-items:center;gap:10px;margin-top:24px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--sky);text-decoration:none;text-transform:uppercase;transition:gap 0.3s}
+.service-arrow:hover{gap:16px}
+
+/* SUPPORT BEYOND */
+.support-section{padding:120px 60px;background:var(--offwhite)}
+.support-header{max-width:1040px;margin:0 auto 70px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end}
+.support-header h2{font-family:'Cinzel',serif;font-size:clamp(28px,3.8vw,52px);font-weight:900;line-height:1.05;color:var(--dark)}
+.support-header h2 span{display:block;color:var(--sky);font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300}
+.support-header p{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--mid);line-height:1.8;font-weight:300}
+.support-header .ar{font-family:'Cairo',sans-serif;font-size:13px;color:var(--gray);margin-top:10px;line-height:1.9;font-weight:300}
+.support-cards{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.support-card{background:#fff;overflow:hidden;position:relative;transition:transform 0.4s}
+.support-card:hover{transform:translateY(-6px)}
+.support-card-img{height:200px;background-size:cover;background-position:center;position:relative}
+.support-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(55,38,31,0.5) 0%,transparent 60%)}
+.support-card-body{padding:28px 24px}
+.support-card-body h4{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--dark);letter-spacing:1px;margin-bottom:4px}
+.support-card-body .ar-t{font-family:'Cairo',sans-serif;font-size:13px;color:var(--sky);font-weight:600;margin-bottom:10px}
+.support-card-body p{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--mid);line-height:1.7;font-weight:300}
+.support-card-link{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--sky);text-decoration:none;text-transform:uppercase;transition:gap 0.3s}
+.support-card-link:hover{gap:12px}
+
+/* TESTIMONIALS */
+.testimonials-section{padding:120px 60px;background:var(--sky-dark)}
+.testimonials-header{text-align:center;margin-bottom:60px}
+.testimonials-header h2{font-family:'Cinzel',serif;font-size:clamp(26px,3.5vw,44px);font-weight:700;color:#fff;margin-bottom:6px}
+.testimonials-header h2 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)}
+.testimonials-header p{font-family:'Cairo',sans-serif;color:rgba(255,255,255,0.5);font-size:13px}
+.testi-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.testi-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:40px;position:relative;transition:all 0.4s}
+.testi-card:hover{background:rgba(255,255,255,0.08);transform:translateY(-4px)}
+.testi-quote{font-size:48px;color:var(--gold);opacity:0.4;line-height:1;margin-bottom:16px;font-family:'Cormorant Garamond',serif}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.75;font-weight:300;margin-bottom:8px}
+.testi-text-ar{font-family:'Cairo',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--sky);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.testi-role{font-family:'Cairo',sans-serif;font-size:11px;color:rgba(255,255,255,0.4)}
+.testi-stars{color:var(--sand);font-size:12px;margin-top:3px}
+
+/* CTA */
+.cta-section{padding:140px 60px;text-align:center;position:relative;overflow:hidden;background:var(--offwhite)}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(189,118,94,0.08) 0%,transparent 65%)}
+.cta-inner{position:relative;z-index:2}
+.cta-section h2{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,64px);font-weight:900;color:var(--dark);letter-spacing:3px;margin-bottom:6px}
+.cta-section h2 .blue{color:var(--sky)}
+.cta-section .ar-h2{font-family:'Cairo',sans-serif;font-size:clamp(18px,2.5vw,30px);color:var(--gray);font-weight:300;margin-bottom:16px}
+.cta-section p{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--mid);margin-bottom:8px}
+.cta-section .ar-p{font-family:'Cairo',sans-serif;font-size:13px;color:var(--lgray);font-weight:300;margin-bottom:44px}
+.cta-divider{width:1px;height:55px;background:linear-gradient(180deg,transparent,var(--sky),transparent);margin:0 auto 44px}
+
+/* FOOTER */
+footer{background:var(--sky-dark);padding:70px 60px 40px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px}
+.footer-logo{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold);letter-spacing:4px;margin-bottom:16px}
+.footer-logo span{color:#fff;font-weight:400}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300}
+.footer-tagline .ar{font-family:'Cairo',sans-serif;font-size:12px;font-style:normal;font-weight:300;margin-top:6px;display:block}
+.footer-col h5{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:18px}
+.footer-col a{display:block;font-family:'Cairo',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;margin-bottom:10px;transition:color 0.3s}
+.footer-col a:hover{color:var(--gold)}
+.footer-contact p{font-family:'Cairo',sans-serif;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:'Cairo',sans-serif;font-size:11px;color:rgba(255,255,255,0.3)}
+.footer-big{font-family:'Cinzel',serif;font-size:clamp(40px,7vw,100px);font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:6px;text-align:center;padding:20px 0;pointer-events:none;user-select:none}
+
+/* ANIMATIONS */
+@keyframes cMove{from{transform:translateX(-120%)}to{transform:translateX(120vw)}}
+@keyframes cMove2{from{transform:translateX(120vw)}to{transform:translateX(-120%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  .about-grid,.rewired-inner,.support-header,.testi-grid,.footer-top{grid-template-columns:1fr;gap:36px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .arrows-row{flex-wrap:wrap}.arrow-item{width:170px;height:100px}
+  .service-row{grid-template-columns:1fr}.service-img{height:240px}
+  .support-cards{grid-template-columns:1fr}
+  .about-section,.rewired-section,.arrows-section,.support-section,.testimonials-section,.cta-section{padding:70px 20px}
+  .stats-section,.services-header{padding:50px 20px}
+  footer{padding:50px 20px 30px}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+}
+
+/* SEARCH SECTION */
+.search-section{padding:80px 60px;background:#fff;position:relative}
+.search-section::before{content:'FIND YOUR HOME';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cinzel',serif;font-size:clamp(40px,8vw,120px);font-weight:900;color:rgba(189,118,94,0.03);white-space:nowrap;letter-spacing:10px;pointer-events:none}
+.search-inner{max-width:1040px;margin:0 auto;text-align:center}
+.search-box{background:var(--offwhite);border:1px solid rgba(189,118,94,0.15);display:flex;align-items:center;gap:0;max-width:860px;margin:40px auto 40px;box-shadow:0 8px 40px rgba(55,38,31,0.08)}
+.search-input{flex:1;border:none;outline:none;padding:18px 24px;font-family:'Cairo',sans-serif;font-size:14px;color:var(--dark);background:transparent}
+.search-input::placeholder{color:var(--lgray)}
+.search-divider{width:1px;height:44px;background:rgba(189,118,94,0.15);flex-shrink:0}
+.search-select{border:none;outline:none;padding:18px 20px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:var(--gray);background:transparent;cursor:pointer;min-width:150px;text-transform:uppercase}
+.search-btn{background:var(--sky-dark);color:#fff;border:none;padding:18px 36px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;flex-shrink:0}
+.search-btn:hover{background:var(--sky)}
+.categories{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:10px}
+.cat-item{border:1px solid rgba(189,118,94,0.15);padding:18px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:all 0.3s;min-width:120px;background:#fff}
+.cat-item:hover{border-color:var(--gold);background:var(--offwhite);transform:translateY(-4px);box-shadow:0 8px 24px rgba(55,38,31,0.08)}
+.cat-icon{width:44px;height:44px;color:var(--gold);transition:color .3s,transform .3s}
+.cat-item:hover .cat-icon{color:var(--sky-dark);transform:translateY(-2px)}
+.cat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--dark);text-transform:uppercase}
+/* FEATURED */
+.featured-section{padding:100px 60px;background:var(--offwhite)}
+.featured-inner{max-width:1040px;margin:0 auto}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+.prop-card{background:#fff;border:1px solid rgba(189,118,94,0.1);overflow:hidden;transition:all 0.3s}
+.prop-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(55,38,31,0.1)}
+.prop-img{height:210px;overflow:hidden;position:relative}
+.prop-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+.prop-card:hover .prop-img img{transform:scale(1.05)}
+.prop-badge{position:absolute;top:14px;left:14px;background:var(--sky-dark);color:#fff;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;padding:5px 12px;text-transform:uppercase}
+.prop-badge.resale{background:var(--gold-dark)}
+.prop-info{padding:20px 22px}
+.prop-title{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:5px}
+.prop-location{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gray);font-style:italic;margin-bottom:12px}
+.prop-details{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.prop-detail{font-family:'Cairo',sans-serif;font-size:11px;color:var(--mid)}
+.prop-price{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--sky-dark);border-top:1px solid rgba(189,118,94,0.1);padding-top:12px}
+.prop-price span{font-size:10px;font-weight:400;color:var(--gray);letter-spacing:1px;margin-right:4px}
+/* AREAS */
+.areas-section{padding:100px 60px;background:#fff}
+.areas-inner{max-width:1040px;margin:0 auto}
+.areas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:50px}
+.area-card{position:relative;height:260px;overflow:hidden;cursor:pointer}
+.area-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+.area-card:hover img{transform:scale(1.08)}
+.area-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(55,38,31,0.88) 0%,rgba(55,38,31,0.2) 100%);transition:all 0.3s}
+.area-info{position:absolute;bottom:0;left:0;right:0;padding:22px}
+.area-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:2px;margin-bottom:3px}
+.area-name-ar{font-family:'Cairo',sans-serif;font-size:11px;color:rgba(255,255,255,0.65);direction:rtl;margin-bottom:6px}
+.area-count{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--sand);font-style:italic}
+
+
+/* BRAND LOGO */
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;direction:ltr}
+.logo-mark{height:46px;width:auto;flex-shrink:0}
+.footer-logo .logo-mark{height:64px}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;letter-spacing:0}
+.brand-text b{font-family:Optima,'Marcellus','Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#F4F2E4}
+.brand-text i{font-family:Optima,'Cormorant Garamond',serif;font-size:11px;font-style:italic;color:#BD765E;margin-top:2px}
+.footer-logo .brand-text b{font-size:24px}
+.nav-cta,.btn-outline-white,.service-arrow{font-family:'Cairo',sans-serif;letter-spacing:0;font-size:13px}
+@media(max-width:768px){
+  body{cursor:auto}.cursor,.cursor-ring{display:none}
+  .cards-grid{grid-template-columns:1fr}.areas-grid{grid-template-columns:1fr 1fr}
+  .search-box{flex-wrap:wrap}.search-divider{display:none}.search-select,.search-btn{flex:1 1 100%}
+  .search-section,.featured-section,.areas-section{padding:70px 20px}
+  .service-text{padding:40px 24px}.hero-title-clip{font-size:clamp(48px,12vw,150px);letter-spacing:6px}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo brand"><svg class="logo-mark" viewBox="0 0 56 80" aria-hidden="true"><rect x="5" y="3" width="5" height="58" fill="#BD765E"/><path d="M7.5 5.5H28a19 19 0 0 1 0 38H10" fill="none" stroke="#BD765E" stroke-width="5"/><rect x="17" y="8" width="8" height="69" fill="#E2CBB5"/><path d="M21 56c0-7 5-10 12-10s12 4 12 11v20" fill="none" stroke="#E2CBB5" stroke-width="8"/></svg><span class="brand-text"><b>Home Place</b><i>your place.your home</i></span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">تواصل معنا</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <div class="cloud c4"></div><div class="cloud c5"></div>
+  <div class="hero-fog"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tagline">Real Estate Marketing · تسويق عقاري في مصر</span>
+    <span class="hero-title-clip">HOME PLACE</span>
+    <p class="hero-sub-en">Your Gateway to Egypt's Finest Projects</p>
+    <div class="hero-divider"></div>
+    <div class="hero-btns">
+      <a href="#services" class="btn-sky">Explore · استكشف</a>
+      <a href="#contact" class="btn-outline-white">تواصل معنا</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+
+<!-- SEARCH -->
+<section class="search-section">
+  <div class="search-inner">
+    <span class="section-label">Find Your Property</span>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--dark);line-height:1.1">Discover Your <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky);font-weight:300">Dream Home</em></h2>
+    <p style="font-family:'Cairo',sans-serif;font-size:13px;color:var(--gray);margin-top:8px;direction:rtl">ابحث عن وحدتك المثالية</p>
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="Search properties by title ...">
+      <div class="search-divider"></div>
+      <select class="search-select">
+        <option value="">Select Status</option>
+        <option>For Sale</option>
+        <option>For Rent</option>
+        <option>Resale</option>
+      </select>
+      <div class="search-divider"></div>
+      <select class="search-select">
+        <option value="">Select Type</option>
+        <option>Apartment</option>
+        <option>Town House</option>
+        <option>Twin House</option>
+        <option>Administrative</option>
+        <option>Commercial</option>
+        <option>Medical</option>
+      </select>
+      <div class="search-divider"></div>
+      <select class="search-select">
+        <option value="">Select Area</option>
+        <option>New Cairo</option>
+        <option>New Capital</option>
+        <option>North Coast</option>
+        <option>Ain Sokhna</option>
+      </select>
+      <button class="search-btn">Search</button>
+    </div>
+    <div class="categories">
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="6" width="24" height="36"/><path d="M18 13h4M26 13h4M18 20h4M26 20h4M18 27h4M26 27h4M21 42v-7h6v7M6 42h36"/></svg><span class="cat-label">Apartment</span></div>
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 42V24l8-7 8 7v18M20 42V24l8-7 8 7v18M36 42V27l4-3 4 3v15M2 42h44"/><path d="M10 42v-8h4v8M26 42v-8h4v8"/></svg><span class="cat-label">Town House</span></div>
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 42V22L15 13l9 8 9-8 10 9v20M3 42h42M24 21v21"/><path d="M12 42v-9h6v9M30 42v-9h6v9"/></svg><span class="cat-label">Twin House</span></div>
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="12" width="30" height="30"/><path d="M24 18v10M19 23h10M21 42v-7h6v7M16 12V6h16v6M5 42h38"/></svg><span class="cat-label">Medical</span></div>
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="16" width="36" height="24" rx="2"/><path d="M18 16v-5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5M6 26h36M21 26v4h6v-4"/></svg><span class="cat-label">Administrative</span></div>
+      <div class="cat-item"><svg class="cat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18l3-10h30l3 10M6 18v24h36V18M6 18c0 3 2.5 5 5 5s5-2 5-5c0 3 2.5 5 5 5s5-2 5-5c0 3 2.5 5 5 5s5-2 5-5c0 3 2.5 5 5 5s5-2 5-5"/><path d="M14 42V31h8v11M28 30h8v6h-8z"/></svg><span class="cat-label">Commercial</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured-section">
+  <div class="featured-inner">
+    <span class="section-label">Featured Listings</span>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--dark);line-height:1.1">Premium <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky);font-weight:300">Properties</em></h2>
+    <p style="font-family:'Cairo',sans-serif;font-size:13px;color:var(--gray);margin-top:8px;direction:rtl">أفضل الوحدات المختارة لك</p>
+    <div class="cards-grid">
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" alt="Galleria">
+          <span class="prop-badge resale">Resale</span>
+        </div>
+        <div class="prop-info">
+          <div class="prop-title">Galleria Apartment</div>
+          <div class="prop-location">Galleria · New Cairo · On the Lake</div>
+          <div class="prop-details">
+            <span class="prop-detail">🛏 3 Beds</span>
+            <span class="prop-detail">🚿 2 Baths</span>
+            <span class="prop-detail">📐 170 m²</span>
+          </div>
+          <div class="prop-price"><span>EGP</span>10,000,000</div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Mountain View">
+          <span class="prop-badge">For Sale</span>
+        </div>
+        <div class="prop-info">
+          <div class="prop-title">Mountain View Hyde Park</div>
+          <div class="prop-location">Hyde Park · New Cairo · Lake View</div>
+          <div class="prop-details">
+            <span class="prop-detail">🛏 3 Beds</span>
+            <span class="prop-detail">🚿 2 Baths</span>
+            <span class="prop-detail">📐 160 m²</span>
+          </div>
+          <div class="prop-price"><span>EGP</span>10,300,000</div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Office">
+          <span class="prop-badge">Administrative</span>
+        </div>
+        <div class="prop-info">
+          <div class="prop-title">Luxury Office | Amal Axis</div>
+          <div class="prop-location">Amal Axis · Facing Madinaty</div>
+          <div class="prop-details">
+            <span class="prop-detail">📐 Various Sizes</span>
+            <span class="prop-detail">💰 600K DP</span>
+          </div>
+          <div class="prop-price"><span>Installments</span>15 Years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas-section">
+  <div class="areas-inner">
+    <span class="section-label">Explore Areas</span>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--dark);line-height:1.1">Browse by <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sky);font-weight:300">Location</em></h2>
+    <p style="font-family:'Cairo',sans-serif;font-size:13px;color:var(--gray);margin-top:8px;direction:rtl">تصفح حسب المنطقة</p>
+    <div class="areas-grid">
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="New Cairo">
+        <div class="area-overlay"></div>
+        <div class="area-info">
+          <div class="area-name">New Cairo</div>
+          <div class="area-name-ar">التجمع الخامس</div>
+          <div class="area-count">Villas · Apartments</div>
+        </div>
+      </div>
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" alt="New Capital">
+        <div class="area-overlay"></div>
+        <div class="area-info">
+          <div class="area-name">New Capital</div>
+          <div class="area-name-ar">العاصمة الإدارية</div>
+          <div class="area-count">Residential · Commercial</div>
+        </div>
+      </div>
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="North Coast">
+        <div class="area-overlay"></div>
+        <div class="area-info">
+          <div class="area-name">North Coast</div>
+          <div class="area-name-ar">الساحل الشمالي</div>
+          <div class="area-count">Chalets · Villas</div>
+        </div>
+      </div>
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Ain Sokhna">
+        <div class="area-overlay"></div>
+        <div class="area-info">
+          <div class="area-name">Ain Sokhna</div>
+          <div class="area-name-ar">العين السخنة</div>
+          <div class="area-count">Sea View Units</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <span class="section-label">About · عن الشركة</span>
+      <h2>This Isn't Just<br><em>Marketing.</em></h2>
+      <p class="ar-sub">هذا ليس مجرد تسويق</p>
+    </div>
+    <div class="about-right reveal">
+      <div class="gold-line"></div>
+      <p>We connect ambitious buyers with Egypt's most prestigious real estate projects. From New Cairo to the North Coast — we market what matters.</p>
+      <p class="ar">نربط المشترين الطموحين بأرقى المشروعات العقارية في مصر. من التجمع الخامس إلى الساحل الشمالي — نسوّق ما يستحق.</p>
+    </div>
+  </div>
+  <div class="city-img reveal">
+    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&q=85" alt="City Skyline" />
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item reveal"><span class="stat-number">7+</span><p class="stat-label-en">Years of Experience</p><p class="stat-label-ar">سنين خبرة في السوق</p></div>
+    <div class="stat-item reveal"><span class="stat-number">4</span><p class="stat-label-en">Key Destinations</p><p class="stat-label-ar">مناطق رئيسية</p></div>
+    <div class="stat-item reveal"><span class="stat-number">3</span><p class="stat-label-en">Services</p><p class="stat-label-ar">بيع من المطور · ريسيل · إيجار</p></div>
+    <div class="stat-item reveal"><span class="stat-number">1:1</span><p class="stat-label-en">Personal Advisor</p><p class="stat-label-ar">متابعة شخصية لكل عميل</p></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Luxury Living</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> حياة فاخرة</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Premium Projects</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> مشروعات مميزة</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Home Place</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> هوم بليس</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Real Estate Marketing</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> تسويق عقاري</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Luxury Living</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> حياة فاخرة</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Premium Projects</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> مشروعات مميزة</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> Home Place</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> هوم بليس</span>
+  </div>
+</div>
+
+<!-- REWIRED / STEPS -->
+<section class="rewired-section">
+  <div class="rewired-inner">
+    <div class="rewired-left reveal">
+      <span class="section-label">How We Work · كيف نعمل</span>
+      <h2>Real Estate.<br><span>Rewired.</span></h2>
+      <p class="ar-h">التسويق العقاري. بشكل مختلف.</p>
+    </div>
+    <div class="rewired-steps reveal">
+      <div class="step-item">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <h4>Talk to a <em>Real Human.</em></h4>
+          <p>We match you with an expert who actually listens to what you need.</p>
+          <p class="ar">نضعك مع خبير يستمع فعلاً لاحتياجاتك ويفهمك.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <h4>Get <em>Clarity.</em></h4>
+          <p>We define what you really need, not just what's available.</p>
+          <p class="ar">نحدد ما تحتاجه فعلاً، مش بس ما هو متاح.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <h4>Move <em>Forward.</em></h4>
+          <p>We find what fits — and make it happen for you.</p>
+          <p class="ar">نلاقي اللي يناسبك — ونخليه يحصل.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARROWS -->
+<section class="arrows-section" id="projects">
+  <div class="arrows-header reveal">
+    <span class="section-label">Our Process · خطواتنا</span>
+    <h2>It's About <em>Results.</em> Always.</h2>
+    <p>نتائج حقيقية · عملاء راضون · مشروعات مميزة</p>
+  </div>
+  <div class="arrows-row reveal">
+    <div class="arrow-item">
+      <div class="arrow-img" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=80')"></div>
+      <div class="arrow-overlay"></div>
+      <div class="arrow-content"><span class="arrow-num">01</span><span class="arrow-label-en">Discover</span><span class="arrow-label-ar">اكتشف</span></div>
+    </div>
+    <div class="arrow-item">
+      <div class="arrow-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=80')"></div>
+      <div class="arrow-overlay"></div>
+      <div class="arrow-content"><span class="arrow-num">02</span><span class="arrow-label-en">Evaluate</span><span class="arrow-label-ar">قيّم</span></div>
+    </div>
+    <div class="arrow-item">
+      <div class="arrow-img" style="background-image:url('https://images.unsplash.com/photo-1448630360428-65456885c650?w=400&q=80')"></div>
+      <div class="arrow-overlay"></div>
+      <div class="arrow-content"><span class="arrow-num">03</span><span class="arrow-label-en">Invest</span><span class="arrow-label-ar">استثمر</span></div>
+    </div>
+    <div class="arrow-item">
+      <div class="arrow-img" style="background-image:url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&q=80')"></div>
+      <div class="arrow-overlay"></div>
+      <div class="arrow-content"><span class="arrow-num">04</span><span class="arrow-label-en">Own</span><span class="arrow-label-ar">امتلك</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-header reveal">
+    <h2>Services · الخدمات</h2>
+    <h3>How Home Place Can Help You</h3>
+  </div>
+  <div class="service-row reveal">
+    <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80')"></div>
+    <div class="service-text">
+      <span class="service-num">01 · BUY</span>
+      <div class="service-title-en">Buy</div>
+      <div class="service-title-ar">شراء</div>
+      <p class="service-desc">Buy smarter with expert agents backed by deep market knowledge across Egypt's finest compounds and locations.</p>
+      <p class="service-desc-ar">اشتري بذكاء مع وكلاء متخصصين ومعرفة عميقة بأفضل المشروعات في مصر.</p>
+      <a href="#contact" class="service-arrow">تواصل معنا →</a>
+    </div>
+  </div>
+  <div class="service-row service-row-alt reveal">
+    <div class="service-text" style="background:#2A1D17">
+      <span class="service-num">02 · INVEST</span>
+      <div class="service-title-en">Invest</div>
+      <div class="service-title-ar">استثمر</div>
+      <p class="service-desc">Access Egypt's most promising real estate investments with expert guidance that maximizes your return.</p>
+      <p class="service-desc-ar">احصل على أفضل فرص الاستثمار العقاري في مصر مع إرشاد متخصص يعظم عائدك.</p>
+      <a href="#contact" class="service-arrow">تواصل معنا →</a>
+    </div>
+    <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&q=80')"></div>
+  </div>
+</section>
+
+<!-- SUPPORT BEYOND -->
+<section class="support-section">
+  <div class="support-header">
+    <div class="reveal">
+      <span class="section-label">Beyond Marketing · ما وراء التسويق</span>
+      <h2>Support<br><span>Beyond Buying.</span></h2>
+    </div>
+    <div class="reveal">
+      <p>The real estate market never stands still — and neither do we. We help you maximize your investment beyond just finding the right unit.</p>
+      <p class="ar">سوق العقارات لا يتوقف — ونحن كذلك. نساعدك على تعظيم استثمارك بعيداً عن مجرد إيجاد الوحدة المناسبة.</p>
+    </div>
+  </div>
+  <div class="support-cards">
+    <div class="support-card reveal">
+      <div class="support-card-img" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80')"></div>
+      <div class="support-card-body">
+        <h4>Top Projects</h4>
+        <p class="ar-t">أفضل المشروعات</p>
+        <p>We market Egypt's most prestigious compounds — New Cairo, New Capital, North Coast and Ain Sokhna.</p>
+        <a href="#contact" class="support-card-link">Learn More →</a>
+      </div>
+    </div>
+    <div class="support-card reveal">
+      <div class="support-card-img" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80')"></div>
+      <div class="support-card-body">
+        <h4>Personal Service</h4>
+        <p class="ar-t">خدمة شخصية</p>
+        <p>From first call to final contract — our team is by your side every step of the way.</p>
+        <a href="#contact" class="support-card-link">Learn More →</a>
+      </div>
+    </div>
+    <div class="support-card reveal">
+      <div class="support-card-img" style="background-image:url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80')"></div>
+      <div class="support-card-body">
+        <h4>Smart Investment</h4>
+        <p class="ar-t">استثمار ذكي</p>
+        <p>Right unit, right price, right time. We help you make decisions that build lasting wealth.</p>
+        <a href="#contact" class="support-card-link">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div class="cta-divider"></div>
+    <span class="section-label">Start Your Journey · ابدأ رحلتك</span>
+    <h2>Find <span class="blue">Home Place.</span><br>We'll Help You Get There.</h2>
+    <p class="ar-h2">اعثر على وحدتك المثالية</p>
+    <p>You're not just looking for a unit.<br>You're looking for where your next chapter begins.</p>
+    <p class="ar-p">أنت لا تبحث فقط عن وحدة — أنت تبحث عن بداية فصل جديد في حياتك.</p>
+    <div class="hero-btns" style="opacity:1;animation:none">
+      <a href="tel:+201201763620" class="btn-sky">📞 01201763620</a>
+      <a href="https://wa.me/201201763620" class="btn-outline-white" style="border-color:rgba(189,118,94,0.5);color:var(--sky-dark)">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo brand"><svg class="logo-mark" viewBox="0 0 56 80" aria-hidden="true"><rect x="5" y="3" width="5" height="58" fill="#BD765E"/><path d="M7.5 5.5H28a19 19 0 0 1 0 38H10" fill="none" stroke="#BD765E" stroke-width="5"/><rect x="17" y="8" width="8" height="69" fill="#E2CBB5"/><path d="M21 56c0-7 5-10 12-10s12 4 12 11v20" fill="none" stroke="#E2CBB5" stroke-width="8"/></svg><span class="brand-text"><b>Home Place</b><i>your place.your home</i></span></a>
+      <p class="footer-tagline">Your trusted real estate marketing partner across Egypt's finest projects.<span class="ar">شريكك الموثوق في تسويق أفضل المشروعات العقارية في مصر.</span></p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Areas</h5>
+      <a href="#">التجمع الخامس</a>
+      <a href="#">العاصمة الإدارية</a>
+      <a href="#">الساحل الشمالي</a>
+      <a href="#">العين السخنة</a>
+    </div>
+    <div class="footer-col footer-contact">
+      <h5>Contact</h5>
+      <p>📞 01201763620</p>
+      <p>💬 WhatsApp متاح</p>
+      <p>📍 مصر</p>
+    </div>
+  </div>
+  <div class="footer-big">HOME PLACE</div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Home Place · جميع الحقوق محفوظة</p>
+    <p class="footer-copy">Made with ❤️ in Egypt</p>
+  </div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target)}})},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
